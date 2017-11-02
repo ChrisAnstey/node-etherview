@@ -1,0 +1,6 @@
+<%- include('../layouts/header') -%>
+<h2>Block: <%= block.number %></h2>
+<div>Hash: <%= block.hash %></div>
+<div>Timestamp: <%= block.timestamp %></div>
+<div><a href="/?block=<%= block.parentHash %>">Parent block</a></div>
+<%- include('../layouts/footer') -%>
