@@ -3,10 +3,12 @@
  */
 require('dotenv').config()
 
-const http = require('http')
 const url = require('url');
 const Web3 = require('web3');
 const ejs = require('ejs')
+
+var express = require('express')
+var app = express()
 
 /**
  * Code to handle web requests
@@ -14,7 +16,7 @@ const ejs = require('ejs')
  * @param  {[type]} response [description]
  * @return {[type]}          [description]
  */
-const requestHandler = (request, response) => {
+app.get('/', (request, response) => {
     response.writeHead(200, {
         'content-type': 'text/html'
     });
@@ -46,11 +48,9 @@ const requestHandler = (request, response) => {
         }
     );
 
-}
+})
 
-const server = http.createServer(requestHandler)
-
-server.listen(process.env.HTTP_PORT, (err) => {
+app.listen(process.env.HTTP_PORT, (err) => {
     if (err) {
         return console.log('something bad happened', err)
     }
