@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 var web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER))
 
 /**
- * Code to handle web requests
+ * Displays block info
  * @param  {[type]} req  [description]
  * @param  {[type]} res [description]
  * @return {[type]}          [description]
@@ -28,6 +28,27 @@ app.get('/blocks/:block', (req, res) => {
     res.render('pages/block', {
             title: 'View Block: ' + block.number,
             block: block
+        });
+})
+
+/**
+ * Display eth node status value
+ * @param  {[type]} req  [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}          [description]
+ */
+app.get('/status', (req, res) => {
+
+    syncing = (web3.eth.syncing !== false);
+    // the actual stats if we're syncing, false otherwise
+    syncStats = web3.eth.syncing;
+
+    res.render('pages/status', {
+            title: 'Status',
+            // syncing: web3.eth.syncing,
+            syncing: syncing,
+            syncStats: syncStats,
+            latestBlock: web3.eth.blockNumber,
         });
 })
 

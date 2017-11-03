@@ -1,0 +1,21 @@
+<%- include('../layouts/header') -%>
+<div>Syncing: <%= syncing %></div>
+<% if(syncing) { %>
+	<table>
+		<% Object.keys(syncStats).forEach(function(item) { %>
+			<tr>
+				<td><%= item %></td>
+				<td>
+					<% if(item == 'currentBlock') { %>
+						<a href="/blocks/<%= syncStats[item] %>"><%= syncStats[item] %></a>
+					<% } else { %>
+						<%= syncStats[item] %>
+					<% } %>
+				</td>
+			</tr>
+		<% }); %>
+	</table>
+<% } else { %>
+	<div><a href="/blocks/<%= latestBlock %>">Latest block</a></div>
+<% } %>
+<%- include('../layouts/footer') -%>
