@@ -10,8 +10,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "web3": "0.14.0",
-    "ejs": "2.5.7"
+    "dotenv": "4.0.0",
+    "web3"  : "0.14.0",
+    "ejs"   : "2.5.7"
   }
 }
 
