@@ -1,18 +1,17 @@
 {
-  "name": "node-etherview",
-  "version": "0.0.1",
-  "description": "Nodejs web app to view ethereum blockchain",
-  "author": "Chris",
-  "main": "server.js",
-  "repository": "na",
-  "license": "Apache-2.0",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "dotenv": "4.0.0",
-    "web3"  : "0.14.0",
-    "ejs"   : "2.5.7"
-  }
+    "name": "node-etherview",
+    "version": "0.0.1",
+    "description": "Nodejs web app to view ethereum blockchain",
+    "author": "Chris",
+    "main": "server.js",
+    "repository": "na",
+    "license": "Apache-2.0",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "dotenv": "4.0.0",
+        "web3": "0.14.0",
+        "ejs": "2.5.7"
+    }
 }
-
