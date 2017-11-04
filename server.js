@@ -48,16 +48,11 @@ app.get('/blocks/:block', (req, res) => {
  */
 app.get('/status', (req, res) => {
 
-    syncing = (web3.eth.syncing !== false);
-    // the actual stats if we're syncing, false otherwise
-    syncStats = web3.eth.syncing;
-
     res.render('pages/status', {
             title: 'Status',
-            // syncing: web3.eth.syncing,
-            syncing: syncing,
-            syncStats: syncStats,
+            syncStats: web3.eth.syncing,
             latestBlock: web3.eth.blockNumber,
+            accounts: web3.eth.accounts,
         });
 })
 
