@@ -3,58 +3,18 @@
  */
 require('dotenv').config()
 
-const Web3 = require('web3');
-const ejs = require('ejs')
-
 var express = require('express')
 var app = express()
 
 app.set('view engine', 'ejs');
 
-var moment = require('moment')
+// load routes
+var blocks = require('./routes/blocks');
+app.use('/blocks', blocks);
 
-// create connection to geth node - in this case, the docker host
-var web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER))
+var status = require('./routes/status');
+app.use('/', status);
 
-/**
- * Displays block info
- * @param  {[type]} req  [description]
- * @param  {[type]} res [description]
- * @return {[type]}          [description]
- */
-app.get('/blocks/:block', (req, res) => {
-
-    // load the block info using web3
-    var block = web3.eth.getBlock(req.params.block, true)
-
-    // convert transaction values to ether
-    Object.keys(block.transactions).forEach(function(item) {
-        block.transactions[item].value = web3.fromWei(block.transactions[item].value, 'ether');
-    });
-
-    res.render('pages/block', {
-            title: 'View Block: ' + block.number,
-            block: block,
-            dateTime: moment.unix(block.timestamp ).format('LLL'),
-            web3: web3
-        });
-})
-
-/**
- * Display eth node status value
- * @param  {[type]} req  [description]
- * @param  {[type]} res [description]
- * @return {[type]}          [description]
- */
-app.get('/status', (req, res) => {
-
-    res.render('pages/status', {
-            title: 'Status',
-            syncStats: web3.eth.syncing,
-            latestBlock: web3.eth.blockNumber,
-            accounts: web3.eth.accounts,
-        });
-})
 
 // Middleware for error handling
 
@@ -63,7 +23,6 @@ function logErrors (err, req, res, next) {
     next(err)
 }
 
-
 function clientErrorHandler (err, req, res, next) {
     if (req.xhr) {
         res.status(500).send({ error: 'Something failed!' })
@@ -71,7 +30,6 @@ function clientErrorHandler (err, req, res, next) {
         next(err)
     }
 }
-
 
 function errorHandler (err, req, res, next) {
     res.status(500)

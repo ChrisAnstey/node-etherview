@@ -8,3 +8,4 @@ services:
      - ./server.js:/usr/src/app/server.js
      - ./.env:/usr/src/app/.env
      - ./views:/usr/src/app/views
+     - ./routes:/usr/src/app/routes
