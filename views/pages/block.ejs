@@ -1,6 +1,50 @@
 <%- include('../layouts/header') -%>
 <h2>Block: <%= block.number %></h2>
 <div>Hash: <%= block.hash %></div>
-<div>Timestamp: <%= block.timestamp %></div>
+<div>Date: <%= dateTime %></div>
 <div><a href="/blocks/<%= block.parentHash %>">Parent block</a></div>
+
+<h4>Details</h4>
+<table class="table table-bordered">
+	<% Object.keys(block).forEach(function(item) { %>
+		<tr>
+			<td><%= item %></td>
+			<td>
+				<% if(item == 'transactions') { %>
+					<%= block[item].length %>
+				<% } else if(item == 'logsBloom') { %>
+					...
+				<% } else { %>
+					<%= block[item] %>
+				<% } %>
+			</td>
+		</tr>
+	<% }); %>
+</table>
+<h4>Transactions</h4>
+<table class="table table-bordered">
+	<tr>
+		<th>Hash</th>
+		<th>From</th>
+		<th>To</th>
+		<th>Value</th>
+	</tr>
+	<% Object.keys(block.transactions).forEach(function(item) { %>
+		<tr>
+			<td>
+				<%= block.transactions[item].hash %>
+			</td>
+			<td>
+				<%= block.transactions[item].from %>
+			</td>
+			<td>
+				<%= block.transactions[item].to %>
+			</td>
+			<td>
+				<%= block.transactions[item].value %>
+			</td>
+		</tr>
+	<% }); %>
+</table>
+
 <%- include('../layouts/footer') -%>

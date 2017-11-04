@@ -11,6 +11,8 @@ var app = express()
 
 app.set('view engine', 'ejs');
 
+var moment = require('moment')
+
 // create connection to geth node - in this case, the docker host
 var web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER))
 
@@ -23,11 +25,18 @@ var web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER))
 app.get('/blocks/:block', (req, res) => {
 
     // load the block info using web3
-    var block = web3.eth.getBlock(req.params.block)
+    var block = web3.eth.getBlock(req.params.block, true)
+
+    // convert transaction values to ether
+    Object.keys(block.transactions).forEach(function(item) {
+        block.transactions[item].value = web3.fromWei(block.transactions[item].value, 'ether');
+    });
 
     res.render('pages/block', {
             title: 'View Block: ' + block.number,
-            block: block
+            block: block,
+            dateTime: moment.unix(block.timestamp ).format('LLL'),
+            web3: web3
         });
 })
 
