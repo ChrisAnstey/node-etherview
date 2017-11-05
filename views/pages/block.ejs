@@ -35,10 +35,10 @@
 				<%= block.transactions[item].hash %>
 			</td>
 			<td>
-				<%= block.transactions[item].from %>
+				<a href="/accounts/<%= block.transactions[item].from %>"><%= block.transactions[item].from %></a>
 			</td>
 			<td>
-				<%= block.transactions[item].to %>
+				<a href="/accounts/<%= block.transactions[item].to %>"><%= block.transactions[item].to %></a>
 			</td>
 			<td>
 				<%= block.transactions[item].value %>

@@ -15,6 +15,9 @@ app.use('/blocks', blocks);
 var status = require('./routes/status');
 app.use('/', status);
 
+var accounts = require('./routes/accounts');
+app.use('/accounts', accounts);
+
 
 // Middleware for error handling
 
