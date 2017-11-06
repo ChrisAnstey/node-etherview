@@ -12,11 +12,14 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'))
 
 // load routes
+var status = require('./routes/status');
+app.use('/', status);
+
 var blocks = require('./routes/blocks');
 app.use('/blocks', blocks);
 
-var status = require('./routes/status');
-app.use('/', status);
+var transactions = require('./routes/transactions');
+app.use('/transactions', transactions);
 
 var accounts = require('./routes/accounts');
 app.use('/accounts', accounts);

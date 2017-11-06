@@ -41,7 +41,7 @@ var hiddenRows = ['mixHash', 'extraData', 'logsBloom', 'receiptsRoot', 'sha3Uncl
 	<% Object.keys(block.transactions).forEach(function(item) { %>
 		<tr>
 			<td>
-				<%= block.transactions[item].hash %>
+				<a href="/transactions/<%= block.transactions[item].hash %>"><%= block.transactions[item].hash.substring(0, 32) %>...</a>
 			</td>
 			<td>
 				<a href="/accounts/<%= block.transactions[item].from %>"><%= block.transactions[item].from %></a>

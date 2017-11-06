@@ -1,0 +1,32 @@
+<%
+
+// transaction rows to hide initially
+var hiddenRows = ['v', 'r', 's', 'blockHash', 'nonce'];
+
+%>
+
+<%- include('../layouts/header') -%>
+
+<h2>View Transaction</h2>
+<div>Hash: <%= transaction.hash %></div>
+
+<span class='showhide' style='float:right;'>Show/hide full details</span>
+<h4>Details</h4>
+<table class="table table-bordered">
+	<% Object.keys(transaction).forEach(function(item) { %>
+		<tr class='collapse <%= hiddenRows.indexOf(item) == -1 ? 'in' : 'showhideitem out' %>'>
+			<td><%= item %></td>
+			<td>
+				<% if(['from','to'].indexOf(item) != -1) { %>
+					<a href="/accounts/<%= transaction[item] %>"><%= transaction[item] %></a>
+				<% } else if(['blockHash','blockNumber'].indexOf(item) != -1) { %>
+					<a href="/blocks/<%= transaction[item] %>"><%= transaction[item] %></a>
+				<% } else { %>
+					<%= transaction[item] %>
+				<% } %>
+			</td>
+		</tr>
+	<% }); %>
+</table>
+
+<%- include('../layouts/footer') -%>
