@@ -1,13 +1,22 @@
+<%
+
+// block rows to hide initially
+var hiddenRows = ['mixHash', 'extraData', 'logsBloom', 'receiptsRoot', 'sha3Uncles', 'stateRoot', 'totalDifficulty', 'transactionsRoot', 'uncles', 'size', 'nonce', 'difficulty'];
+
+%>
+
 <%- include('../layouts/header') -%>
+
 <h2>Block: <%= block.number %></h2>
 <div>Hash: <%= block.hash %></div>
 <div>Date: <%= dateTime %></div>
 <div><a href="/blocks/<%= block.parentHash %>">Parent block</a></div>
 
+<span class='showhide' style='float:right;'>Show/hide full details</span>
 <h4>Details</h4>
 <table class="table table-bordered">
 	<% Object.keys(block).forEach(function(item) { %>
-		<tr>
+		<tr class='collapse <%= hiddenRows.indexOf(item) == -1 ? 'in' : 'showhideitem out' %>'>
 			<td><%= item %></td>
 			<td>
 				<% if(item == 'transactions') { %>

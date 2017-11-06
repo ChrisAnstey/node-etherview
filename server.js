@@ -8,6 +8,9 @@ var app = express()
 
 app.set('view engine', 'ejs');
 
+// static files
+app.use(express.static('public'))
+
 // load routes
 var blocks = require('./routes/blocks');
 app.use('/blocks', blocks);
