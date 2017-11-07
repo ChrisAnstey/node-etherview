@@ -19,7 +19,8 @@ router.get(['/', '/status'], (req, res) => {
             syncStats: web3.eth.syncing,
             latestBlock: web3.eth.blockNumber,
             accounts: web3.eth.accounts,
-            peerCount: web3.net.peerCount
+            peerCount: web3.net.peerCount,
+            wshost: 'ws://localhost:'+process.env.WS_PORT+'/'
         });
 })
 

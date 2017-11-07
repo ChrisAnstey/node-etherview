@@ -17,7 +17,7 @@
 		<% }); %>
 	</table>
 <% } else { %>
-	<div><a href="/blocks/<%= latestBlock %>">Latest block</a></div>
+	<div>Latest block: <a class='latestBlockLink' href="/blocks/<%= latestBlock %>"><span class='latestBlockLinkText'><%= latestBlock %></span></a></div>
 <% } %>
 <h3>PeerCount: <%= peerCount %></h3>
 
