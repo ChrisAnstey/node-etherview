@@ -6,6 +6,11 @@ require('dotenv').config()
 var express = require('express')
 var app = express()
 
+const WebSocket = require('ws');
+const http = require('http');
+const url = require('url');
+const Web3 = require('web3');
+
 app.set('view engine', 'ejs');
 
 // static files
@@ -56,3 +61,29 @@ app.listen(process.env.HTTP_PORT, (err) => {
 
     console.log(`server is listening on ${process.env.HTTP_PORT}`)
 })
+
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', function connection(ws, req) {
+    const location = url.parse(req.url, true);
+
+    ws.on('message', function incoming(message) {
+        console.log('received: %s', message);
+    });
+
+});
+
+server.listen(process.env.WS_PORT, function listening() {
+    console.log('Listening on %d', server.address().port);
+});
+
+// periodically send latest block number to websocket clients
+const interval = setInterval(function newinfo() {
+    wss.clients.forEach(function each(ws) {
+        var web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER))
+
+        ws.send(JSON.stringify({'latestBlock': web3.eth.blockNumber}));
+    });
+  }, 3000);

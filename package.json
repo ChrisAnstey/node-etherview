@@ -12,6 +12,7 @@
     "dependencies": {
         "dotenv": "4.0.0",
         "express": "4.16.2",
+        "ws": "3.3.0",
         "web3": "0.14.0",
         "ejs": "2.5.7",
         "moment": "2.19.1"
