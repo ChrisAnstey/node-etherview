@@ -59,7 +59,7 @@ app.listen(process.env.HTTP_PORT, (err) => {
         return console.log('something bad happened', err)
     }
 
-    console.log(`server is listening on ${process.env.HTTP_PORT}`)
+    console.log(`webserver is listening on ${process.env.HTTP_PORT}`)
 })
 
 
@@ -76,7 +76,7 @@ wss.on('connection', function connection(ws, req) {
 });
 
 server.listen(process.env.WS_PORT, function listening() {
-    console.log('Listening on %d', server.address().port);
+    console.log('websocket server is listening on %d', server.address().port);
 });
 
 // periodically send latest block number to websocket clients
