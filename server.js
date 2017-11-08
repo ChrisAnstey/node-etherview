@@ -24,30 +24,8 @@ app.use('/transactions', transactions);
 var accounts = require('./routes/accounts');
 app.use('/accounts', accounts);
 
-
-// Middleware for error handling
-
-function logErrors (err, req, res, next) {
-    console.error(err.stack)
-    next(err)
-}
-
-function clientErrorHandler (err, req, res, next) {
-    if (req.xhr) {
-        res.status(500).send({ error: 'Something failed!' })
-    } else {
-        next(err)
-    }
-}
-
-function errorHandler (err, req, res, next) {
-    res.status(500)
-    res.render('pages/error', { error: err })
-}
-
-app.use(logErrors)
-app.use(clientErrorHandler)
-app.use(errorHandler)
+// load middleware (currently just errors)
+app.use(require('./middlewares/errors'))
 
 app.listen(process.env.HTTP_PORT, (err) => {
     if (err) {
