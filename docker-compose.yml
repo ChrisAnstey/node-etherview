@@ -4,9 +4,8 @@ services:
     image: "node-etherview"
     ports:
      - "127.0.0.1:3000:3000"
+     - "127.0.0.1:3001:3001"
     volumes:
-     - ./server.js:/usr/src/app/server.js
-     - ./.env:/usr/src/app/.env
-     - ./views:/usr/src/app/views
-     - ./routes:/usr/src/app/routes
-     - ./public:/usr/src/app/public
+     - .:/usr/src/app/
+    environment:
+     - NODE_PATH=/usr/local/lib/node_modules/node-etherview/node_modules/

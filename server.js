@@ -54,5 +54,8 @@ app.listen(process.env.HTTP_PORT, (err) => {
         return console.log('something bad happened', err)
     }
 
-    console.log(`server is listening on ${process.env.HTTP_PORT}`)
+    console.log(`webserver is listening on ${process.env.HTTP_PORT}`)
 })
+
+// load the websocket server
+var wss = require('./wsserver');
