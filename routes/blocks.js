@@ -27,7 +27,7 @@ router.get('/:block', (req, res) => {
     res.render('pages/block', {
             title: 'View Block: ' + block.number,
             block: block,
-            dateTime: moment.unix(block.timestamp ).format('LLL'),
+            dateTime: moment.unix(block.timestamp ).format('MMMM Do YYYY, h:mm:ss a'),
             web3: web3
         });
 })
