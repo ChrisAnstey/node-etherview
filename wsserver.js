@@ -25,12 +25,16 @@ server.listen(process.env.WS_PORT, function listening() {
     console.log('websocket server is listening on %d', server.address().port);
 });
 
-// periodically send latest block number to websocket clients
-const interval = setInterval(function newinfo() {
-    wss.clients.forEach(function each(ws) {
+var filter = web3.eth.filter('latest');
 
-        ws.send(JSON.stringify({'latestBlock': web3.eth.blockNumber}));
-    });
-  }, 3000);
+// watch for latest block changes
+filter.watch(function(error, result){
+    if (!error) {
+        // send latest block update to each ws client
+        wss.clients.forEach(function each(ws) {
+            ws.send(JSON.stringify({'latestBlock': web3.eth.blockNumber}));
+        });
+    }
+});
 
 module.exports = wss
