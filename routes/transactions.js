@@ -18,6 +18,7 @@ router.get('/:transaction', (req, res) => {
 
     // load the transaction info using web3
     var transaction = web3.eth.getTransaction(req.params.transaction)
+    var transactionReceipt = web3.eth.getTransactionReceipt(req.params.transaction)
 
     // convert transaction values to ether
     transaction.valueEther = web3.fromWei(transaction.value, 'ether');
@@ -26,6 +27,7 @@ router.get('/:transaction', (req, res) => {
     res.render('pages/transaction', {
             title: 'View Transaction: ' + transaction.hash,
             transaction: transaction,
+            receipt: transactionReceipt,
             web3: web3
         });
 })

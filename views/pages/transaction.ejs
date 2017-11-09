@@ -2,6 +2,7 @@
 
 // transaction rows to hide initially
 var hiddenRows = ['v', 'r', 's', 'blockHash', 'nonce'];
+var receiptHiddenRows = ['logsBloom', 'logs', 'transactionHash', 'blockHash', 'blockNumber'];
 
 %>
 
@@ -23,6 +24,26 @@ var hiddenRows = ['v', 'r', 's', 'blockHash', 'nonce'];
 					<a href="/blocks/<%= transaction[item] %>"><%= transaction[item] %></a>
 				<% } else { %>
 					<%= transaction[item] %>
+				<% } %>
+			</td>
+		</tr>
+	<% }); %>
+</table>
+
+<h4>Receipt</h4>
+<table class="table table-bordered">
+	<% Object.keys(receipt).forEach(function(item) { %>
+		<tr class='collapse <%= receiptHiddenRows.indexOf(item) == -1 ? 'in' : 'showhideitem out' %>'>
+			<td><%= item %></td>
+			<td>
+				<% if(['from','to'].indexOf(item) != -1) { %>
+					<a href="/accounts/<%= receipt[item] %>"><%= receipt[item] %></a>
+				<% } else if(item == 'contractAddress') { %>
+					<a href="/tokens/<%= receipt[item] %>"><%= receipt[item] %></a>
+				<% } else if(['blockHash','blockNumber'].indexOf(item) != -1) { %>
+					<a href="/blocks/<%= receipt[item] %>"><%= receipt[item] %></a>
+				<% } else { %>
+					<%= receipt[item] %>
 				<% } %>
 			</td>
 		</tr>
