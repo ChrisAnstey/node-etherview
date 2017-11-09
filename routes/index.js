@@ -15,4 +15,7 @@ app.use('/transactions', transactions);
 var accounts = require('./accounts');
 app.use('/accounts', accounts);
 
+var tokens = require('./tokens');
+app.use('/tokens', tokens);
+
 module.exports = app
